@@ -26,8 +26,8 @@ int main() {
 	cout << +color.getRed() << " " << +color.getGreen() << " " << +color.getBlue() << endl << endl;
 
 
-	cout << "Changing blues color to 56, 56 ,56 " << endl; 
-	t.setColor(RGB(56, 56, 56), Tribe::blue);
+	cout << "Changing blues color to Bisque (255-228-196) " << endl; 
+	t.setColor(RGB(255, 228, 196), Tribe::blue);
 
 	cout << "Saving File" << endl;
 	t.writeToDisk("C:\\Program Files (x86)\\Bullfrog\\Populous");

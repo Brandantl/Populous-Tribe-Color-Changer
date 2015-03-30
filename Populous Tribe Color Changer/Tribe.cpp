@@ -78,33 +78,36 @@ bool Tribe::writeToDisk(char * popDataDir) {
 		std::strcat(path, files[i].c_str() );
 		std::strcat(path, ".dat");
 
-		FILE* pFile;
-		pFile = fopen(path, "wb");
-		fseek(pFile, 216 * 4, SEEK_SET);
+		std::fstream file(path, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);
+		file.seekg(864);
 
 		for (int j = 0; j < 31; j++) {
 			if (j < 8) {
-				char buffer[] = { Tribes[blue].getRed(), Tribes[blue].getGreen(), Tribes[blue].getBlue() };
-				fwrite(buffer, sizeof(unsigned char), 3, pFile);
-				fwrite("", sizeof(unsigned char), 1, pFile);
+				file << static_cast<unsigned char>(Tribes[blue].getRed());
+				file << static_cast<unsigned char>(Tribes[blue].getGreen());
+				file << static_cast<unsigned char>(Tribes[blue].getBlue());
+				file << static_cast<unsigned char>(0);
 			}
 			else if (j < 16) {
-				char buffer[] = { Tribes[green].getRed(), Tribes[green].getGreen(), Tribes[green].getBlue() };
-				fwrite(buffer, sizeof(unsigned char), 3, pFile);
-				fwrite("", sizeof(unsigned char), 1, pFile);
+				file << static_cast<unsigned char>(Tribes[green].getRed());
+				file << static_cast<unsigned char>(Tribes[green].getGreen());
+				file << static_cast<unsigned char>(Tribes[green].getBlue());
+				file << static_cast<unsigned char>(0);
 			}
 			else if (j < 24) {
-				char buffer[] = { Tribes[yellow].getRed(), Tribes[yellow].getGreen(), Tribes[yellow].getBlue() };
-				fwrite(buffer, sizeof(unsigned char), 3, pFile);
-				fwrite("", sizeof(unsigned char), 1, pFile);
+				file << static_cast<unsigned char>(Tribes[yellow].getRed());
+				file << static_cast<unsigned char>(Tribes[yellow].getGreen());
+				file << static_cast<unsigned char>(Tribes[yellow].getBlue());
+				file << static_cast<unsigned char>(0);
 			}
 			else if (j < 32) {
-				char buffer[] = { Tribes[red].getRed(), Tribes[red].getGreen(), Tribes[red].getBlue() };
-				fwrite(buffer, sizeof(unsigned char), 3, pFile);
-				fwrite("", sizeof(unsigned char), 1, pFile);
+				file << static_cast<unsigned char>(Tribes[red].getRed());
+				file << static_cast<unsigned char>(Tribes[red].getGreen());
+				file << static_cast<unsigned char>(Tribes[red].getBlue());
+				file << static_cast<unsigned char>(0);
 			}
 		}
-		fclose(pFile);
+		file.close();
 	}
 	return true;
 }
