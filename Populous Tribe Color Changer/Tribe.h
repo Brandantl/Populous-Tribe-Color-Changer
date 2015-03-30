@@ -1,3 +1,6 @@
+// Brandan Tyler Lasley 2015
+// 3-30-2015 02:30 
+
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
 #endif

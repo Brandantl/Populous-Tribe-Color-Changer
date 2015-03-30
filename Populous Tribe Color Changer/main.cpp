@@ -1,3 +1,6 @@
+// Brandan Tyler Lasley 2015
+// 3-30-2015 02:30 
+
 #include "Tribe.h"
 #include <iostream>
 using namespace std;
