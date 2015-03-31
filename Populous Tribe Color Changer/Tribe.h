@@ -9,7 +9,6 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <iostream>
 
 class Tribe {
 
