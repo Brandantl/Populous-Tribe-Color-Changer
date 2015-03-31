@@ -80,10 +80,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RGB.cpp" />
+    <ClCompile Include="Unit.cpp" />
     <ClCompile Include="Tribe.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RGB.h" />
+    <ClInclude Include="Unit.h" />
     <ClInclude Include="Tribe.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

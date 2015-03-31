@@ -5,6 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#include <math.h> 
 class RGB {
 
 public:
@@ -20,8 +21,11 @@ public:
 	unsigned char getGreen() const;
 	unsigned char getBlue() const;
 
+	RGB * generateSegments();
 private:
 	unsigned char red;
 	unsigned char green;
 	unsigned char blue;
+
+	RGB makeSegment(RGB);
 };

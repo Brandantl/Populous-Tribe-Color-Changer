@@ -7,9 +7,9 @@ using namespace std;
 
 // Driver
 int main() {
+	cout << "=================================" << endl;
 	Tribe t;
 	t.readFromDisk("C:\\Program Files (x86)\\Bullfrog\\Populous");
-
 	cout << "Reading colors from file..." << endl << endl;
 
 	cout << "Blue: " << endl;
@@ -29,8 +29,8 @@ int main() {
 	cout << +color.getRed() << " " << +color.getGreen() << " " << +color.getBlue() << endl << endl;
 
 
-	cout << "Changing blues color to Bisque (255-228-196) " << endl; 
-	t.setColor(RGB(255, 228, 196), Tribe::blue);
+	cout << "Changing blues color to grayish (50-50-50) " << endl; 
+	t.setColor(RGB(50, 50, 50), Tribe::blue);
 
 	cout << "Saving File" << endl;
 	t.writeToDisk("C:\\Program Files (x86)\\Bullfrog\\Populous");
@@ -56,6 +56,8 @@ int main() {
 	color = t.getColor(Tribe::green);
 	cout << +color.getRed() << " " << +color.getGreen() << " " << +color.getBlue() << endl << endl;
 
+
+	cout << "End.";
 	cin.get();
-	return 1;
+	return 0;
 }

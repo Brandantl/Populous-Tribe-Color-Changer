@@ -1,9 +1,8 @@
 // Brandan Tyler Lasley 2015
 // 3-30-2015 02:30 
-
 #include "Tribe.h"
 
-const string Tribe::files[] = {
+const std::string Tribe::files[] = {
 	"0", "1", "2", "3", "4", "5", "6", "7",
 	"8", "9", "a", "b", "c", "d",
 	"e", "f", "g", "h", "i",
@@ -14,7 +13,7 @@ const string Tribe::files[] = {
 };
 
 Tribe::Tribe() {
-	Tribes = new RGB[MAX_TRIBES];
+	Tribes = new Unit[MAX_TRIBES];
 }
 
 Tribe::~Tribe() {
@@ -22,11 +21,11 @@ Tribe::~Tribe() {
 }
 
 RGB Tribe::getColor(player _player) {
-	return Tribes[_player];
+	return Tribes[_player].getColor();
 }
 
 bool Tribe::setColor(RGB col, player _player) {
-	Tribes[_player] = col;
+	Tribes[_player].setColor(col.generateSegments());
 	return true;
 }
 
@@ -37,8 +36,8 @@ bool Tribe::readFromDisk(char * popDataDir) {
 	std::strcat(path, Tribe::to_string(0).c_str());
 	std::strcat(path, ".dat");
 
-	ifstream reader;
-	reader.open(path, ios::binary | ios::in);
+	std::ifstream reader;
+	reader.open(path, std::ios::binary | std::ios::in);
 
 	char R, G, B;
 	// Get Blue
@@ -70,6 +69,7 @@ bool Tribe::readFromDisk(char * popDataDir) {
 	this->setColor(RGB(R, G, B), red);
 
 	reader.close();
+	delete[] path;
 	return true;
 }
 
@@ -82,35 +82,41 @@ bool Tribe::writeToDisk(char * popDataDir) {
 		std::strcat(path, ".dat");
 
 		std::fstream file(path, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);
+		
 		file.seekg(864);
-
-		for (int j = 0; j < 31; j++) {
-			if (j < 8) {
-				file << static_cast<unsigned char>(Tribes[blue].getRed());
-				file << static_cast<unsigned char>(Tribes[blue].getGreen());
-				file << static_cast<unsigned char>(Tribes[blue].getBlue());
-				file << static_cast<unsigned char>(0);
-			}
-			else if (j < 16) {
-				file << static_cast<unsigned char>(Tribes[green].getRed());
-				file << static_cast<unsigned char>(Tribes[green].getGreen());
-				file << static_cast<unsigned char>(Tribes[green].getBlue());
-				file << static_cast<unsigned char>(0);
-			}
-			else if (j < 24) {
-				file << static_cast<unsigned char>(Tribes[yellow].getRed());
-				file << static_cast<unsigned char>(Tribes[yellow].getGreen());
-				file << static_cast<unsigned char>(Tribes[yellow].getBlue());
-				file << static_cast<unsigned char>(0);
-			}
-			else if (j < 32) {
-				file << static_cast<unsigned char>(Tribes[red].getRed());
-				file << static_cast<unsigned char>(Tribes[red].getGreen());
-				file << static_cast<unsigned char>(Tribes[red].getBlue());
-				file << static_cast<unsigned char>(0);
-			}
+		for (int x = 0; x < 8; x++) {
+			file << static_cast<unsigned char>(Tribes[blue].getSegments(x).getRed());
+			file << static_cast<unsigned char>(Tribes[blue].getSegments(x).getGreen());
+			file << static_cast<unsigned char>(Tribes[blue].getSegments(x).getBlue());
+			file << static_cast<unsigned char>(0);
 		}
+
+		file.seekg(896);
+		for (int x = 0; x < 8; x++) {
+			file << static_cast<unsigned char>(Tribes[green].getSegments(x).getRed());
+			file << static_cast<unsigned char>(Tribes[green].getSegments(x).getGreen());
+			file << static_cast<unsigned char>(Tribes[green].getSegments(x).getBlue());
+			file << static_cast<unsigned char>(0);
+		}
+
+		file.seekg(936);
+		for (int x = 0; x < 8; x++) {
+			file << static_cast<unsigned char>(Tribes[yellow].getSegments(x).getRed());
+			file << static_cast<unsigned char>(Tribes[yellow].getSegments(x).getGreen());
+			file << static_cast<unsigned char>(Tribes[yellow].getSegments(x).getBlue());
+			file << static_cast<unsigned char>(0);
+		}
+
+		file.seekg(964);
+		for (int x = 0; x < 8; x++) {
+			file << static_cast<unsigned char>(Tribes[red].getSegments(x).getRed());
+			file << static_cast<unsigned char>(Tribes[red].getSegments(x).getGreen());
+			file << static_cast<unsigned char>(Tribes[red].getSegments(x).getBlue());
+			file << static_cast<unsigned char>(0);
+		}
+
 		file.close();
+	    delete[] path;
 	}
 	return true;
 }

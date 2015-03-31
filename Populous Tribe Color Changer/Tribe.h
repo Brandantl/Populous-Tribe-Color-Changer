@@ -5,13 +5,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include "RGB.h"
+#include "Unit.h"
 #include <fstream>
-#include <istream>
 #include <string>
 #include <sstream>
-
-using namespace std;
 
 class Tribe {
 
@@ -34,8 +31,8 @@ public:
 private:
 	// Vars
 	const int MAX_TRIBES = 4;
-	const static string files[];
-	RGB * Tribes;
+	const static std::string files[];
+	Unit * Tribes;
 
 	// Functions
 	std::string to_string(int value);
