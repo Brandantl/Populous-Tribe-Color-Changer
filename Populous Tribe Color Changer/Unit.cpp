@@ -7,15 +7,17 @@ Unit::Unit() {
 }
 
 Unit::~Unit() {
-	delete[] unitSegments;
-} 
+	if (unitSegments != nullptr) {
+		delete[] unitSegments;
+	}
+}
 
 RGB Unit::getColor() {
 	return unitSegments[0];
 }
 
-void Unit::setColor(RGB* col) {
-	if (unitSegments != nullptr) { 
+void Unit::setSegments(RGB* col) {
+	if (unitSegments != nullptr) {
 		delete[] unitSegments;
 	}
 	unitSegments = col;

@@ -9,6 +9,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <iostream>
 
 class Tribe {
 
@@ -25,6 +26,8 @@ public:
 
 	RGB getColor(player);
 	bool setColor(RGB, player);
+	void setSegments(RGB*, player);
+	RGB getSegments(int, player);
 
 	bool readFromDisk(char *);
 	bool writeToDisk(char *);

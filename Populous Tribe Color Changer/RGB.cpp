@@ -48,7 +48,6 @@ RGB * RGB::generateSegments() {
 	return segments;
 }
 
-
 RGB RGB::makeSegment(RGB c) {
 	float RcorrectionFactor = 0.0220f;
 	float GcorrectionFactor = 0.0220f;

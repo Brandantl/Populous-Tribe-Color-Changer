@@ -56,7 +56,6 @@ int main() {
 	color = t.getColor(Tribe::green);
 	cout << +color.getRed() << " " << +color.getGreen() << " " << +color.getBlue() << endl << endl;
 
-
 	cout << "End.";
 	cin.get();
 	return 0;

@@ -9,7 +9,7 @@ public:
 	~Unit();
 	RGB getColor(); 
 	RGB getSegments(int);
-	void setColor(RGB*);
+	void setSegments(RGB*);
 private:
 	int MAX_SEGMENTS = 8;
 	RGB * unitSegments;

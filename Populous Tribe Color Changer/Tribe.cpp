@@ -25,7 +25,7 @@ RGB Tribe::getColor(player _player) {
 }
 
 bool Tribe::setColor(RGB col, player _player) {
-	Tribes[_player].setColor(col.generateSegments());
+	Tribes[_player].setSegments(col.generateSegments());
 	return true;
 }
 
@@ -39,34 +39,54 @@ bool Tribe::readFromDisk(char * popDataDir) {
 	std::ifstream reader;
 	reader.open(path, std::ios::binary | std::ios::in);
 
-	char R, G, B;
+	RGB * segments = new RGB[8];
+	char R, G, B, D;
 	// Get Blue
 	reader.seekg(864);
-	reader.read(&R, 1);
-	reader.read(&G, 1);
-	reader.read(&B, 1);
-	this->setColor(RGB(R, G, B), blue);
+	for (int i = 0; i < 8; i++) {
+		reader.read(&R, 1);
+		reader.read(&G, 1);
+		reader.read(&B, 1);
+		reader.read(&D, 1);
+		segments[i] = RGB(R, G, B);
+	}
+	Tribes[blue].setSegments(segments);
 
+	segments = new RGB[8];
 	// Get Green
 	reader.seekg(896);
-	reader.read(&R, 1);
-	reader.read(&G, 1);
-	reader.read(&B, 1);
-	this->setColor(RGB(R, G, B), green);
+	for (int i = 0; i < 8; i++) {
+		reader.read(&R, 1);
+		reader.read(&G, 1);
+		reader.read(&B, 1);
+		reader.read(&D, 1);
+		segments[i] = RGB(R, G, B);
+	}
+	Tribes[green].setSegments(segments);
 
+	segments = new RGB[8];
 	// Get Yellow
 	reader.seekg(936);
-	reader.read(&R, 1);
-	reader.read(&G, 1);
-	reader.read(&B, 1);
-	this->setColor(RGB(R, G, B), yellow);
+	for (int i = 0; i < 8; i++) {
+		reader.read(&R, 1);
+		reader.read(&G, 1);
+		reader.read(&B, 1);
+		reader.read(&D, 1);
+		segments[i] = RGB(R, G, B);
+	}
+	Tribes[yellow].setSegments(segments);
 
+	segments = new RGB[8];
 	// Get Red
 	reader.seekg(964);
-	reader.read(&R, 1);
-	reader.read(&G, 1);
-	reader.read(&B, 1);
-	this->setColor(RGB(R, G, B), red);
+	for (int i = 0; i < 8; i++) {
+		reader.read(&R, 1);
+		reader.read(&G, 1);
+		reader.read(&B, 1);
+		reader.read(&D, 1);
+		segments[i] = RGB(R, G, B);
+	}
+	Tribes[red].setSegments(segments);
 
 	reader.close();
 	delete[] path;
@@ -78,11 +98,11 @@ bool Tribe::writeToDisk(char * popDataDir) {
 		char * path = new char[std::strlen(popDataDir) + std::strlen("\\data\\pal0-") + std::strlen(".dat") + 2];
 		std::strcpy(path, popDataDir);
 		std::strcat(path, "\\data\\pal0-");
-		std::strcat(path, files[i].c_str() );
+		std::strcat(path, files[i].c_str());
 		std::strcat(path, ".dat");
 
 		std::fstream file(path, std::ios::in | std::ios::out | std::ios::binary | std::ios::ate);
-		
+
 		file.seekg(864);
 		for (int x = 0; x < 8; x++) {
 			file << static_cast<unsigned char>(Tribes[blue].getSegments(x).getRed());
@@ -116,9 +136,17 @@ bool Tribe::writeToDisk(char * popDataDir) {
 		}
 
 		file.close();
-	    delete[] path;
+		delete[] path;
 	}
 	return true;
+}
+
+void Tribe::setSegments(RGB* seg, player _player) {
+	Tribes[_player].setSegments(seg);
+}
+
+RGB Tribe::getSegments(int idx, player _player) {
+	return Tribes[_player].getSegments(idx);
 }
 
 std::string Tribe::to_string(int value)
